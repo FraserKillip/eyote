@@ -1,0 +1,25 @@
+{
+  "name": "homeautomation",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --pretty -p tsconfig.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "codelyzer": "0.0.28",
+    "rollup": "^0.35.12",
+    "rollup-plugin-typescript": "^0.8.1",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.2"
+  },
+  "dependencies": {
+    "@types/express": "^4.0.32",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "guid": "0.0.12"
+  }
+}
