@@ -5,6 +5,9 @@ import { LoggerNode } from './node/Utility/LoggerNode';
 import { HttpInputNode } from './node/Input/HttpInputNode';
 import { Guid } from './util/Guid';
 import { MultiplyNode } from './math/MultiplyNode';
+import { MathNode } from './MathNode';
+import { NumberParseNode } from './node/Utility/NumberParseNode';
+import { Connection } from './node/Connection';
 
 const app = express();
 
@@ -22,15 +25,14 @@ app.get('/out/:token', function(req, res) {
 
 app.listen(3000, () => console.log('App running on port 3000'));
 
-const node1 = new IntervalNode(Guid.raw(), 'Interval Node', 1000);
-
-const multNode = new MultiplyNode(Guid.raw(), 'Multiply Node', 3);
-
-const node2 = new LoggerNode(Guid.raw(), 'Logger Node');
-
-node1.addConnection(multNode);
-multNode.addConnection(node2);
-
+const interval = new IntervalNode(Guid.raw(), 'Interval Node', 3000);
 const httpNode = new HttpInputNode('test', 'Http Node');
-httpNode.addConnection(node2);
 httpNode.register(app);
+const mathNode = new MathNode(Guid.raw(), 'Math node');
+const logger = new LoggerNode(Guid.raw(), 'Logger Node');
+const parse = new NumberParseNode(Guid.raw(), 'Parse node');
+
+httpNode.addConnection(new Connection<string>((data) => parse.receiveData(data)));
+parse.addConnection(new Connection<number>((data) => mathNode.receiveData(data)));
+interval.addConnection(new Connection<number>((data) => mathNode.receiveData2(data)));
+mathNode.addConnection(new Connection<number>((data) => logger.receiveData(data)));

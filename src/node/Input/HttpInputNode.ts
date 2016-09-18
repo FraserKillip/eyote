@@ -4,7 +4,7 @@ export class HttpInputNode extends SendingNode<string> {
 
     register(app: e.Application) {
         app.post(`/in/${this.identifier}`, (request: e.Request, response: e.Response) => {
-            console.log(request.body);
+            this.sendData(request.body);
             response.end()
         });
 

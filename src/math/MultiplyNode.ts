@@ -1,5 +1,5 @@
-import { SendingNode, ReceivingNode } from '../node/Node';
-export class MultiplyNode extends SendingNode<number> implements ReceivingNode<number> {
+import { SendingNode, MonoReceivingNode } from '../node/Node';
+export class MultiplyNode extends SendingNode<number> implements MonoReceivingNode<number> {
 
     constructor(identifier: string, name: string, private factor: number) {
         super(identifier, name);
